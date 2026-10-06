@@ -97,13 +97,15 @@ def login():
         )
 
         if user and user.check_password(password):
-
             login_user(user)
 
             next_page = request.args.get("next")
 
             if next_page:
                 return redirect(next_page)
+
+            if user.role == "student":
+                return redirect(url_for("student.dashboard"))
 
             return redirect(url_for("home"))
 

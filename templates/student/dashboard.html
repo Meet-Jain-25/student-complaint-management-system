@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard | CampusCare{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+        <div>
+            <span class="dashboard-label">STUDENT PORTAL</span>
+            <h1>Welcome, {{ current_user.name }} 👋</h1>
+            <p>Manage your complaints and track their progress.</p>
+        </div>
+
+        <a href="/student/complaint/new" class="btn-primary">
+            + New Complaint
+        </a>
+    </div>
+
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon">📋</div>
+            <div>
+                <span>Total Complaints</span>
+                <strong>{{ total }}</strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div>
+                <span>Pending</span>
+                <strong>{{ pending }}</strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🔄</div>
+            <div>
+                <span>In Progress</span>
+                <strong>{{ in_progress }}</strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✓</div>
+            <div>
+                <span>Resolved</span>
+                <strong>{{ resolved }}</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Complaints -->
+    <div class="section-card">
+
+        <div class="section-header">
+            <div>
+                <h2>My Complaints</h2>
+                <p>View and track all complaints submitted by you.</p>
+            </div>
+
+            <a href="/student/complaint/new" class="btn-secondary">
+                Submit Complaint
+            </a>
+        </div>
+
+
+        {% if complaints %}
+
+        <div class="complaints-list">
+
+            {% for complaint in complaints %}
+
+            <div class="complaint-card">
+
+                <div class="complaint-main">
+
+                    <div class="complaint-title-row">
+
+                        <h3>{{ complaint.title }}</h3>
+
+                        <span class="status status-{{ complaint.status|lower|replace(' ', '-') }}">
+                            {{ complaint.status }}
+                        </span>
+
+                    </div>
+
+                    <div class="complaint-meta">
+
+                        <span>
+                            #{{ complaint.id }}
+                        </span>
+
+                        <span>
+                            {{ complaint.category }}
+                        </span>
+
+                        <span>
+                            {{ complaint.priority }} Priority
+                        </span>
+
+                        <span>
+                            {{ complaint.created_at.strftime('%d %b %Y') }}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        {{ complaint.description[:180] }}
+                        {% if complaint.description|length > 180 %}
+                        ...
+                        {% endif %}
+                    </p>
+
+                </div>
+
+                <div class="complaint-action">
+
+                    <a href="{{ url_for(
+                        'student.view_complaint',
+                        complaint_id=complaint.id
+                    ) }}"
+                       class="view-link">
+                        View →
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <div class="empty-icon">📭</div>
+
+            <h3>No complaints yet</h3>
+
+            <p>
+                You haven't submitted any complaints.
+                If you have an issue, you can report it here.
+            </p>
+
+            <a href="{{ url_for('student.new_complaint') }}"
+               class="btn-primary">
+                Submit Your First Complaint
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

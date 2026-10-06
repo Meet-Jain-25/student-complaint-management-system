@@ -24,6 +24,9 @@ def create_app():
     # Register authentication routes
     from routes.auth import auth_bp
     app.register_blueprint(auth_bp)
+    
+    from routes.student import student_bp
+    app.register_blueprint(student_bp)
 
     # Create database tables
     with app.app_context():

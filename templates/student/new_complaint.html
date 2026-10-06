@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Complaint | CampusCare{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-header">
+
+        <a href="{{ url_for('student.dashboard') }}"
+           class="back-link">
+            ← Back to Dashboard
+        </a>
+
+        <span class="dashboard-label">CAMPUSCARE</span>
+
+        <h1>Submit a Complaint</h1>
+
+        <p>
+            Tell us about the issue you're facing.
+            Our team will review and handle it.
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form method="POST">
+
+            <!-- Title -->
+            <div class="form-group">
+
+                <label for="title">
+                    Complaint Title
+                    <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="e.g. Wi-Fi not working in hostel"
+                    maxlength="150"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Category -->
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="category">
+                        Category
+                        <span>*</span>
+                    </label>
+
+                    <select
+                        id="category"
+                        name="category"
+                        required
+                    >
+                        <option value="">Select category</option>
+                        <option value="Hostel">Hostel</option>
+                        <option value="Academics">Academics</option>
+                        <option value="Infrastructure">Infrastructure</option>
+                        <option value="Wi-Fi / Internet">Wi-Fi / Internet</option>
+                        <option value="Library">Library</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Mess / Food">Mess / Food</option>
+                        <option value="Cleanliness">Cleanliness</option>
+                        <option value="Security">Security</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                </div>
+
+
+                <!-- Priority -->
+                <div class="form-group">
+
+                    <label for="priority">
+                        Priority
+                    </label>
+
+                    <select
+                        id="priority"
+                        name="priority"
+                    >
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                    <span>*</span>
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="8"
+                    placeholder="Describe the issue in detail..."
+                    required
+                ></textarea>
+
+                <small>
+                    Please provide enough information so the concerned
+                    department can understand and resolve the issue.
+                </small>
+
+            </div>
+
+
+            <!-- Notice -->
+            <div class="form-notice">
+
+                <strong>Before submitting</strong>
+
+                <p>
+                    Make sure the information you've entered is accurate.
+                    Once submitted, your complaint will be assigned a
+                    unique complaint ID.
+                </p>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-actions">
+
+                <a href="{{ url_for('student.dashboard') }}"
+                   class="btn-secondary">
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Submit Complaint
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

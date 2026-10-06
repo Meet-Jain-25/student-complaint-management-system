@@ -945,3 +945,65 @@ a {
     font-size: 13px;
     font-weight: 700;
 }
+/* =========================================
+   HERO BUTTONS
+   ========================================= */
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    padding: 15px 26px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+    cursor: pointer;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Primary Hero Button */
+
+.hero-btn.primary {
+    color: white;
+    background: var(--primary);
+
+    box-shadow:
+        0 10px 24px rgba(79, 70, 229, 0.25);
+}
+
+.hero-btn.primary:hover {
+    background: var(--primary-dark);
+
+    box-shadow:
+        0 14px 30px rgba(79, 70, 229, 0.30);
+}
+
+
+/* Secondary Hero Button */
+
+.hero-btn.secondary {
+    color: var(--text);
+    background: white;
+
+    border: 1px solid var(--border);
+}
+
+.hero-btn.secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: #fafaff;
+}

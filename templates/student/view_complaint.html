@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Complaint #{{ complaint.id }} | CampusCare{% endblock %}
+
+{% block content %}
+
+<div class="complaint-page">
+
+    <a href="{{ url_for('student.dashboard') }}"
+       class="back-link">
+        ← Back to Dashboard
+    </a>
+
+
+    <!-- Complaint Header -->
+    <div class="complaint-detail-header">
+
+        <div>
+
+            <span class="dashboard-label">
+                COMPLAINT #{{ complaint.id }}
+            </span>
+
+            <h1>{{ complaint.title }}</h1>
+
+            <p>
+                Submitted on
+                {{ complaint.created_at.strftime('%d %B %Y at %I:%M %p') }}
+            </p>
+
+        </div>
+
+        <span class="status status-{{ complaint.status|lower|replace(' ', '-') }}">
+            {{ complaint.status }}
+        </span>
+
+    </div>
+
+
+    <!-- Status Progress -->
+    <div class="section-card">
+
+        <h2>Complaint Progress</h2>
+
+        <div class="progress-track">
+
+            <div class="progress-step active">
+                <div class="progress-dot">✓</div>
+                <span>Submitted</span>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step
+                {% if complaint.status in ['Assigned', 'In Progress', 'Resolved', 'Closed'] %}
+                active
+                {% endif %}
+            ">
+                <div class="progress-dot">2</div>
+                <span>Assigned</span>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step
+                {% if complaint.status in ['In Progress', 'Resolved', 'Closed'] %}
+                active
+                {% endif %}
+            ">
+                <div class="progress-dot">3</div>
+                <span>In Progress</span>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step
+                {% if complaint.status in ['Resolved', 'Closed'] %}
+                active
+                {% endif %}
+            ">
+                <div class="progress-dot">4</div>
+                <span>Resolved</span>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step
+                {% if complaint.status == 'Closed' %}
+                active
+                {% endif %}
+            ">
+                <div class="progress-dot">5</div>
+                <span>Closed</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Complaint Information -->
+    <div class="detail-grid">
+
+        <div class="section-card">
+
+            <h2>Complaint Details</h2>
+
+            <div class="detail-item">
+                <span>Category</span>
+                <strong>{{ complaint.category }}</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Priority</span>
+                <strong>{{ complaint.priority }}</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Status</span>
+                <strong>{{ complaint.status }}</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Submitted</span>
+                <strong>
+                    {{ complaint.created_at.strftime('%d %b %Y') }}
+                </strong>
+            </div>
+
+            {% if complaint.updated_at %}
+            <div class="detail-item">
+                <span>Last Updated</span>
+                <strong>
+                    {{ complaint.updated_at.strftime('%d %b %Y') }}
+                </strong>
+            </div>
+            {% endif %}
+
+        </div>
+
+
+        <div class="section-card">
+
+            <h2>Description</h2>
+
+            <div class="description-box">
+                {{ complaint.description }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
